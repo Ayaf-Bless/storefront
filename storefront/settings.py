@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "playground.apps.PlaygroundConfig"
+    "playground.apps.PlaygroundConfig",
+    "store.apps.StoreConfig",
+    "tags.apps.TagsConfig"
 ]
 
 MIDDLEWARE = [
