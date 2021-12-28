@@ -31,6 +31,12 @@ class Customer(models.Model):
     membership = models.CharField(max_length=88, choices=MEMBERSHIP_CHOICES)
     orders = models.ForeignKey("Order", on_delete=models.PROTECT)
 
+    class Meta:
+        db_table = "store_customer"
+        indexes = [
+            models.Index(fields=['last_name', 'first_name']),
+        ]
+
 
 class Order(models.Model):
     PAYMENT_STATUS_FAILED = "F"
