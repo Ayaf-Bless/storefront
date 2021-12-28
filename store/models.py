@@ -12,6 +12,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField()
     updated_at = models.DateTimeField(auto_now=True)
     collections = models.ForeignKey("Collection", on_delete=models.PROTECT, related_name="collect")
     promotions = models.ManyToManyField(Promotion)
@@ -51,6 +52,7 @@ class Address(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, primary_key=True)
+    zip = models.CharField(max_length=80, null=True)
 
 
 class Collection(models.Model):
