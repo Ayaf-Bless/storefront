@@ -1,6 +1,11 @@
 from django.db import models
 
 
+class Promotion(models.Model):
+    description = models.CharField(max_length=255)
+    discount = models.FloatField()
+
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -9,6 +14,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     collections = models.ForeignKey("Collection", on_delete=models.PROTECT, related_name="collect")
+    promotions = models.ManyToManyField(Promotion)
 
 
 class Customer(models.Model):
@@ -49,7 +55,7 @@ class Address(models.Model):
 
 class Collection(models.Model):
     title = models.CharField(max_length=80)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    featured_product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 
 
 class OrderItem(models.Model):
@@ -64,6 +70,6 @@ class Card(models.Model):
 
 
 class CartItem(models.Model):
-    card = models.ForeignKey(Card,on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
