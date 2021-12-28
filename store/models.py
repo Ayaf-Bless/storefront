@@ -8,7 +8,7 @@ class Product(models.Model):
     inventory = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    collections = models.ForeignKey("Collection", on_delete=models.PROTECT)
+    collections = models.ForeignKey("Collection", on_delete=models.PROTECT, related_name="collect")
 
 
 class Customer(models.Model):
@@ -37,7 +37,8 @@ class Order(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     payment_status = models.CharField(max_length=80, choices=PAYMENT_STATUS_CHOICES)
-    items = models.ForeignKey("Item", on_delete=models.CASCADE)
+    items = models.ForeignKey("OrderItem", on_delete=models.PROTECT, related_name="order_item")
+    order = models.ForeignKey(Customer, on_delete=models.PROTECT)
 
 
 class Address(models.Model):
@@ -47,12 +48,22 @@ class Address(models.Model):
 
 
 class Collection(models.Model):
+    title = models.CharField(max_length=80)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
 
 
-class Item(models.Model):
-    pass
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField()
+    unit_price = models.DecimalField(max_digits=6, decimal_places=2)
 
 
 class Card(models.Model):
-    items = models.ForeignKey(Item, on_delete=models.CASCADE)
+    create_at = models.DateTimeField(auto_now_add=True)
+
+
+class CartItem(models.Model):
+    card = models.ForeignKey(Card,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
