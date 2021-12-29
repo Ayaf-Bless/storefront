@@ -19,8 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("playgroud/", include("playgroud.urls")),
-    path('__debug__/', include(debug_toolbar.urls)),
+    path("playground/", include("playgroud.urls")),
+    path("__debug__/",include(debug_toolbar.urls))
 ]
 
 admin.site.site_header = 'Storefront Admin'

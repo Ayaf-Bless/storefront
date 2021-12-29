@@ -1,12 +1,10 @@
-from typing import Collection
-from django.db.models import Q, F
 from django.shortcuts import render
-from django.http import HttpResponse
-from store.models import Cart, CartItem, Customer, Order, OrderItem, Product, Collection
-from django.db.models.aggregates import Count, Max, Min, Avg, Sum
+from store.models import Product
 
 # Create your views here.
 
-
 def say_hello(request):
-    return render(request, "hello.html", {"name": "mosh", })
+    query_set = Product.objects.all()
+    query_set.filter().filter().order_by()
+
+    return render(request, "hello.html", {"name": "ayaf", })
