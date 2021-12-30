@@ -7,6 +7,6 @@ from store.models import Product
 # Create your views here.
 
 def say_hello(request):
-    product = Product.objects.all()[5:10]
+    product = Product.objects.filter(orderitem=True).order_by("title")
 
     return render(request, "hello.html", {"name": "ayaf", "products": list(product)})
